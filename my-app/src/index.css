@@ -1,0 +1,105 @@
+/* ==================== GLOBAL CSS VARIABLES & RESETS ==================== */
+
+:root {
+  /* Brand Colors */
+  --color-primary: #e91e8c;
+  --color-secondary: #7c3aed;
+  --color-accent: #ff6b9d;
+
+  /* Light Mode */
+  --bg-primary: #fafafa;
+  --bg-soft: #f3e8f8;
+  --card-bg: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --border-color: rgba(233, 30, 140, 0.1);
+  --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Dark Mode Variables */
+.dark-mode {
+  --bg-primary: #0f0a19;
+  --bg-soft: #1a1025;
+  --card-bg: #1a1025;
+  --text-primary: #f3f4f6;
+  --text-secondary: #9ca3af;
+  --border-color: rgba(233, 30, 140, 0.18);
+  --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  transition: background 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  transition: background 0.3s ease;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(233, 30, 140, 0.25);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(233, 30, 140, 0.4);
+}
+
+/* Selection */
+::selection {
+  background: rgba(233, 30, 140, 0.2);
+  color: var(--text-primary);
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Buttons */
+button {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Links */
+a {
+  color: inherit;
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid #e91e8c;
+  outline-offset: 2px;
+}

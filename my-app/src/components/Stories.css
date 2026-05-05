@@ -1,0 +1,87 @@
+.stories-container {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 16px 8px;
+  margin-bottom: 20px;
+  box-shadow: var(--card-shadow);
+}
+
+.stories-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 4px 8px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.stories-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.story-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.story-item:hover {
+  transform: scale(1.05);
+}
+
+.story-ring {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, #e91e8c, #7c3aed, #ff6b9d);
+  box-shadow: 0 0 15px rgba(233, 30, 140, 0.4);
+}
+
+.story-ring-own {
+  background: linear-gradient(135deg, #999, #ccc);
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.story-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--card-bg);
+}
+
+.story-add-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(135deg, #e91e8c, #7c3aed);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+  border: 2px solid var(--card-bg);
+  z-index: 2;
+}
+
+.story-username {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  max-width: 64px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}

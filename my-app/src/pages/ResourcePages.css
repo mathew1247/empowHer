@@ -1,0 +1,252 @@
+/* ==================== RESOURCE PAGES (NGOs, Healthcare, Legal) ==================== */
+
+.resource-page {
+  min-height: calc(100vh - 65px);
+  background: var(--bg-primary);
+}
+
+/* Hero */
+.resource-hero {
+  padding: 60px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.resource-hero-ngo {
+  background: linear-gradient(135deg, #e91e8c 0%, #7c3aed 60%, #4f46e5 100%);
+}
+
+.resource-hero-health {
+  background: linear-gradient(135deg, #10b981 0%, #3b82f6 60%, #7c3aed 100%);
+}
+
+.resource-hero-legal {
+  background: linear-gradient(135deg, #f59e0b 0%, #e91e8c 60%, #7c3aed 100%);
+}
+
+.resource-hero::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+}
+
+.resource-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -10%;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+}
+
+.resource-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.resource-hero-tag {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  padding: 5px 16px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  backdrop-filter: blur(10px);
+  display: inline-block;
+}
+
+.resource-hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.15);
+}
+
+.resource-hero-subtitle {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.9);
+  margin: 0;
+  max-width: 550px;
+  line-height: 1.6;
+}
+
+/* Container */
+.resource-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* Emergency Banner */
+.emergency-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(135deg, rgba(233, 30, 140, 0.08), rgba(124, 58, 237, 0.08));
+  border: 1px solid rgba(233, 30, 140, 0.25);
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-bottom: 28px;
+}
+
+.emergency-banner-legal {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(233, 30, 140, 0.08));
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.emergency-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+.emergency-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.emergency-title {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.emergency-numbers {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Controls */
+.resource-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.resource-search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 14px;
+  padding: 12px 18px;
+  max-width: 500px;
+  transition: border-color 0.2s;
+}
+
+.resource-search-box:focus-within {
+  border-color: #e91e8c;
+  box-shadow: 0 0 0 4px rgba(233, 30, 140, 0.1);
+}
+
+.resource-search-input {
+  border: none;
+  outline: none;
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+  background: transparent;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.resource-search-input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.resource-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.resource-filter-btn {
+  padding: 7px 16px;
+  border: 2px solid var(--border-color);
+  border-radius: 20px;
+  background: var(--card-bg);
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.resource-filter-btn:hover {
+  border-color: #e91e8c;
+  color: #e91e8c;
+}
+
+.resource-filter-btn.active {
+  background: linear-gradient(135deg, #e91e8c, #7c3aed);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(233, 30, 140, 0.3);
+}
+
+/* Count */
+.resource-count {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin: 0 0 20px;
+}
+
+/* Grid */
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+/* Empty State */
+.resource-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.resource-empty span {
+  font-size: 2.5rem;
+}
+
+.resource-empty p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 600px) {
+  .resource-hero-title {
+    font-size: 2rem;
+  }
+  .resource-grid {
+    grid-template-columns: 1fr;
+  }
+}
