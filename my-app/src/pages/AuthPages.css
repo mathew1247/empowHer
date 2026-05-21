@@ -196,6 +196,18 @@
   margin-bottom: 16px;
 }
 
+/* Success */
+.auth-success {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #10b981;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
 /* Form */
 .auth-form {
   display: flex;

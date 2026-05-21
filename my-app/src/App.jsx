@@ -13,8 +13,17 @@ import ChatPage from './pages/ChatPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 // Protected route wrapper
+// authLoading is true while AppContext is verifying the JWT cookie with Flask.
+// We render nothing until the check completes to prevent a false /login redirect.
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated } = useApp();
+  const { isAuthenticated, authLoading } = useApp();
+  if (authLoading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <span style={{ fontSize: '2rem' }}>💜</span>
+      </div>
+    );
+  }
   return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
 

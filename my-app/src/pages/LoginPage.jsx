@@ -1,3 +1,11 @@
+/**
+ * LoginPage.jsx — EmpowHer
+ * ========================
+ * Authenticates users via the Flask JWT backend.
+ * On success, Flask sets an HTTP-only cookie — no token is ever
+ * stored in localStorage or exposed to JavaScript.
+ */
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
@@ -6,33 +14,44 @@ import './AuthPages.css';
 const LoginPage = () => {
   const { login } = useApp();
   const navigate = useNavigate();
-  const [form, setForm] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
+
+  const [form, setForm]       = useState({ email: '', password: '' });
+  const [error, setError]     = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    // ── Client-side validation ─────────────────────────────────────────────
     if (!form.email || !form.password) {
       setError('Please fill in all fields.');
       return;
     }
+
     setLoading(true);
-    // Simulate login
-    setTimeout(() => {
-      login({ name: 'Kavya Reddy', username: 'kavya_reddy', email: form.email });
-      setLoading(false);
-      navigate('/');
-    }, 1000);
+
+    // ── Call Flask /api/auth/login via AppContext ───────────────────────────
+    // credentials: "include" is handled inside AppContext.login()
+    const result = await login(form.email, form.password);
+
+    setLoading(false);
+
+    if (result.ok) {
+      navigate('/');   // Redirect to home on success
+    } else {
+      setError(result.error);
+    }
   };
 
   return (
     <div className="auth-page">
       <div className="auth-bg-gradient" />
       <div className="auth-container">
-        {/* Branding Panel */}
+
+        {/* ── Branding Panel ───────────────────────────────────────────── */}
         <div className="auth-brand-panel">
           <div className="auth-brand-content">
             <div className="brand-logo">
@@ -54,7 +73,7 @@ const LoginPage = () => {
           </div>
         </div>
 
-        {/* Login Form */}
+        {/* ── Login Form ───────────────────────────────────────────────── */}
         <div className="auth-form-panel">
           <div className="auth-form-card">
             <div className="auth-form-header">
@@ -62,6 +81,7 @@ const LoginPage = () => {
               <p className="auth-form-subtitle">Sign in to your EmpowHer account</p>
             </div>
 
+            {/* Error banner */}
             {error && <div className="auth-error" role="alert">{error}</div>}
 
             <form onSubmit={handleSubmit} className="auth-form" id="login-form">
@@ -101,7 +121,12 @@ const LoginPage = () => {
                 <a href="#" className="forgot-link">Forgot password?</a>
               </div>
 
-              <button type="submit" className="auth-submit-btn" id="login-submit-btn" disabled={loading}>
+              <button
+                type="submit"
+                className="auth-submit-btn"
+                id="login-submit-btn"
+                disabled={loading}
+              >
                 {loading ? <span className="loading-spinner" /> : 'Sign In'}
               </button>
             </form>
@@ -125,6 +150,7 @@ const LoginPage = () => {
             </p>
           </div>
         </div>
+
       </div>
     </div>
   );

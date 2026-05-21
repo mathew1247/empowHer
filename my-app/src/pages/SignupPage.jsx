@@ -1,20 +1,39 @@
+/**
+ * SignupPage.jsx — EmpowHer
+ * =========================
+ * Registers a new user via the Flask JWT backend.
+ * After successful registration, user is redirected to /login
+ * so they can sign in and receive the HTTP-only JWT cookie.
+ */
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import './AuthPages.css';
 
 const SignupPage = () => {
-  const { login } = useApp();
+  const { signup } = useApp();
   const navigate = useNavigate();
-  const [form, setForm] = useState({ name: '', username: '', email: '', password: '', confirm: '' });
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+
+  const [form, setForm] = useState({
+    name: '',
+    username: '',
+    email: '',
+    password: '',
+    confirm: '',
+  });
+  const [error, setError]       = useState('');
+  const [success, setSuccess]   = useState('');
+  const [loading, setLoading]   = useState(false);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
+
+    // ── Client-side validation ─────────────────────────────────────────────
     if (!form.name || !form.username || !form.email || !form.password) {
       setError('Please fill in all required fields.');
       return;
@@ -27,19 +46,29 @@ const SignupPage = () => {
       setError('Password must be at least 6 characters.');
       return;
     }
+
     setLoading(true);
-    setTimeout(() => {
-      login({ name: form.name, username: form.username, email: form.email });
-      setLoading(false);
-      navigate('/');
-    }, 1000);
+
+    // ── Call Flask /api/auth/signup via AppContext ──────────────────────────
+    // Note: Flask stores username + email + bcrypt hash — name is used as username
+    const result = await signup(form.username, form.email, form.password);
+
+    setLoading(false);
+
+    if (result.ok) {
+      setSuccess('Account created! Redirecting to login…');
+      setTimeout(() => navigate('/login'), 1500);
+    } else {
+      setError(result.error);
+    }
   };
 
   return (
     <div className="auth-page">
       <div className="auth-bg-gradient" />
       <div className="auth-container auth-container-signup">
-        {/* Form Panel */}
+
+        {/* ── Form Panel ───────────────────────────────────────────────── */}
         <div className="auth-form-panel">
           <div className="auth-form-card">
             <div className="auth-form-header">
@@ -50,7 +79,9 @@ const SignupPage = () => {
               <p className="auth-form-subtitle">Create your EmpowHer account today</p>
             </div>
 
-            {error && <div className="auth-error" role="alert">{error}</div>}
+            {/* Error / success banners */}
+            {error   && <div className="auth-error"   role="alert">{error}</div>}
+            {success && <div className="auth-success" role="status">{success}</div>}
 
             <form onSubmit={handleSubmit} className="auth-form" id="signup-form">
               <div className="form-row">
@@ -127,7 +158,12 @@ const SignupPage = () => {
                 <a href="#" className="forgot-link">Privacy Policy</a>
               </label>
 
-              <button type="submit" className="auth-submit-btn" id="signup-submit-btn" disabled={loading}>
+              <button
+                type="submit"
+                className="auth-submit-btn"
+                id="signup-submit-btn"
+                disabled={loading}
+              >
                 {loading ? <span className="loading-spinner" /> : 'Create Account 💜'}
               </button>
             </form>
@@ -139,7 +175,7 @@ const SignupPage = () => {
           </div>
         </div>
 
-        {/* Brand Side */}
+        {/* ── Brand Side ───────────────────────────────────────────────── */}
         <div className="auth-brand-panel auth-brand-panel-right">
           <div className="auth-brand-content">
             <h2 className="signup-brand-title">Why EmpowHer?</h2>
@@ -154,7 +190,7 @@ const SignupPage = () => {
               <div className="signup-reason">
                 <span className="reason-icon">🛡️</span>
                 <div>
-                  <h4>Safe & Supportive Space</h4>
+                  <h4>Safe &amp; Supportive Space</h4>
                   <p>A judgment-free zone to share, learn, and grow</p>
                 </div>
               </div>
@@ -175,6 +211,7 @@ const SignupPage = () => {
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );
